@@ -1,0 +1,52 @@
+{
+  "WFWorkflowClientVersion" : "3090.1",
+  "WFWorkflowActions" : [
+    {
+      "WFWorkflowActionIdentifier" : "is.workflow.actions.text",
+      "WFWorkflowActionParameters" : {
+        "WFTextActionText" : {
+          "Value" : {
+            "string" : "",
+            "attachmentsByRange" : {}
+          },
+          "WFSerializationType" : "WFTextTokenString"
+        }
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier" : "com.apple.siri.ai.GenerateResponse",
+      "WFWorkflowActionParameters" : {
+        "Prompt" : {
+          "Value" : {
+            "string" : "",
+            "attachmentsByRange" : {}
+          },
+          "WFSerializationType" : "WFTextTokenString"
+        },
+        "ModelConfiguration" : {
+          "ModelSelectionConfiguration" : {
+            "PreferredComputeEnvironment" : "PrivateCloudCompute"
+          }
+        }
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier" : "is.workflow.actions.output",
+      "WFWorkflowActionParameters" : {
+        "WFOutput" : {
+          "Value" : {
+            "string" : "",
+            "attachmentsByRange" : {}
+          },
+          "WFSerializationType" : "WFTextTokenString"
+        }
+      }
+    }
+  ],
+  "WFWorkflowClientRelease" : "26.0",
+  "WFWorkflowMinimumClientVersion" : 1200,
+  "WFWorkflowTypes" : [],
+  "WFWorkflowInputContentItemClasses" : [
+    "WFStringContentItem"
+  ]
+}
