@@ -1,13 +1,14 @@
 import Foundation
 import UniformTypeIdentifiers
-#if canImport(VisualIntelligence)
-import VisualIntelligence
-#endif
 #if os(iOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
 #endif
+// Temporarily disable VisualIntelligence import due to API incompatibility
+// #if canImport(VisualIntelligence)
+// import VisualIntelligence
+// #endif
 
 // MARK: - Visual Intelligence Helper
 @available(iOS 18.0, macOS 15.0, *)
@@ -21,10 +22,10 @@ public actor VisualIntelligenceHelper {
     
     public init() {}
     
-    #if canImport(VisualIntelligence)
+    #if canImport(VisualIntelligence) && false // Temporarily disabled due to API incompatibility
     /// Start Visual Intelligence interaction
     @MainActor
-    public func startVisualIntelligence(from viewController: UIViewController? = nil) async throws -> String {
+    public func startVisualIntelligence(from viewController: Any? = nil) async throws -> String {
         // Check if Visual Intelligence is available
         guard VisualIntelligence.isAvailable else {
             throw VIError.notAvailable
@@ -45,29 +46,10 @@ public actor VisualIntelligenceHelper {
         throw VIError.noImageSelected
     }
     
-    private func formatVisualIntelligenceResult(_ result: VisualIntelligence.Result) -> String {
-        var output = ""
-        
-        // Extract text if available
-        if let text = result.text, !text.isEmpty {
-            output += "Text: \(text)\n\n"
-        }
-        
-        // Extract objects if available
-        if let objects = result.detectedObjects, !objects.isEmpty {
-            output += "Detected Objects:\n"
-            for object in objects {
-                output += "- \(object.label) (\(Int(object.confidence * 100))%)\n"
-            }
-            output += "\n"
-        }
-        
-        // Extract scene classification
-        if let scene = result.sceneClassification {
-            output += "Scene: \(scene)\n\n"
-        }
-        
-        return output.isEmpty ? "No information extracted from image" : output
+    private func formatVisualIntelligenceResult(_ result: Any) -> String {
+        // Since VisualIntelligence.Result type is not available, we'll return a generic message
+        // This can be updated when the proper API is available
+        return "Visual Intelligence analysis completed. (Detailed result formatting not yet implemented)"
     }
     #else
     @MainActor
@@ -108,7 +90,7 @@ public enum VisualIntelligence {
     public static var isAvailable: Bool { false }
     
     public class Interaction {
-        public var result: Result?
+        public var result: Any?
         
         public init() {}
         
@@ -118,15 +100,7 @@ public enum VisualIntelligence {
         }
     }
     
-    public struct Result {
-        public let text: String?
-        public let detectedObjects: [DetectedObject]?
-        public let sceneClassification: String?
-        
-        public struct DetectedObject {
-            public let label: String
-            public let confidence: Double
-        }
-    }
+    // Note: Actual Result type not available in current SDK
+    // This is a placeholder for when the API becomes available
 }
 #endif

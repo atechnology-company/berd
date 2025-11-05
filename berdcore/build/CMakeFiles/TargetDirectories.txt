@@ -1,0 +1,7 @@
+/Users/undivisible/Documents/GitHub/berd/berdcore/build/CMakeFiles/berdcore_static.dir
+/Users/undivisible/Documents/GitHub/berd/berdcore/build/CMakeFiles/edit_cache.dir
+/Users/undivisible/Documents/GitHub/berd/berdcore/build/CMakeFiles/rebuild_cache.dir
+/Users/undivisible/Documents/GitHub/berd/berdcore/build/CMakeFiles/list_install_components.dir
+/Users/undivisible/Documents/GitHub/berd/berdcore/build/CMakeFiles/install.dir
+/Users/undivisible/Documents/GitHub/berd/berdcore/build/CMakeFiles/install/local.dir
+/Users/undivisible/Documents/GitHub/berd/berdcore/build/CMakeFiles/install/strip.dir

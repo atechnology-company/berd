@@ -3,7 +3,29 @@ import Foundation
 import FoundationModels
 #endif
 
-/// Utility to check Apple Intelligence availability
+import Foundation
+
+/// Cactus model types available for local inference
+public enum CactusModel {
+    case gemma3_1B_Q4
+    case qwen_4B_Q4
+    
+    public var folderName: String {
+        switch self {
+        case .gemma3_1B_Q4: return "gemma3-1b-q4"
+        case .qwen_4B_Q4: return "qwen-4b-q4"
+        }
+    }
+    
+    public var displayName: String {
+        switch self {
+        case .gemma3_1B_Q4: return "Gemma 3 1B (Q4)"
+        case .qwen_4B_Q4: return "Qwen 4B (Q4)"
+        }
+    }
+}
+
+/// Convenience helpers for checking that the Cactus runtime is installed correctly.
 public struct AIAvailability {
     public static var appleIntelligenceAvailable: Bool {
         #if canImport(FoundationModels)

@@ -24,6 +24,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		480CD0842EADDA8C0036C332 /* Contents.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
+		480CD08A2EADDCB40036C332 /* libberdcore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libberdcore.a; path = berdcore/build/libberdcore.a; sourceTree = "<group>"; };
 		483898F82E9252E9007A01D1 /* berd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = berd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		483899092E9252EA007A01D1 /* berdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = berdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		483899132E9252EA007A01D1 /* berdUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = berdUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,12 +87,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		480CD0852EADDA8C0036C332 /* Berd-PCC.shortcut */ = {
+			isa = PBXGroup;
+			children = (
+				480CD0842EADDA8C0036C332 /* Contents.json */,
+			);
+			path = "Berd-PCC.shortcut";
+			sourceTree = "<group>";
+		};
+		480CD0892EADDCB40036C332 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				480CD08A2EADDCB40036C332 /* libberdcore.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		483898EF2E9252E9007A01D1 = {
 			isa = PBXGroup;
 			children = (
+				480CD0852EADDA8C0036C332 /* Berd-PCC.shortcut */,
 				483898FA2E9252E9007A01D1 /* berd */,
 				4838990C2E9252EA007A01D1 /* berdTests */,
 				483899162E9252EA007A01D1 /* berdUITests */,
+				480CD0892EADDCB40036C332 /* Frameworks */,
 				483898F92E9252E9007A01D1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +132,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4838991C2E9252EA007A01D1 /* Build configuration list for PBXNativeTarget "berd" */;
 			buildPhases = (
+				480CD08C2EADDD530036C332 /* ShellScript */,
 				483898F42E9252E9007A01D1 /* Sources */,
 				483898F52E9252E9007A01D1 /* Frameworks */,
 				483898F62E9252E9007A01D1 /* Resources */,
@@ -244,6 +265,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		480CD08C2EADDD530036C332 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(PROJECT_DIR)/berdcore",
+				"$(PROJECT_DIR)/cactus",
+				"$(PROJECT_DIR)/berdcore/build",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(PROJECT_DIR)/ThirdParty/libberdcore.a",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nset -euo pipefail\nPROJECT_DIR=\"${PROJECT_DIR:-/Users/undivisible/Documents/GitHub/berd}\"\nBERDCORE_DIR=\"${PROJECT_DIR}/berdcore\"\nBUILD_DIR=\"${BERDCORE_DIR}/build\"\n\n# Don't attempt heavy native builds for simulator to avoid cross-arch/toolchain issues\nif [ \"${PLATFORM_NAME:-}\" = \"iphonesimulator\" ]; then\n  echo \"[berdcore] Skipping native berdcore build for simulator (PLATFORM_NAME=\"${PLATFORM_NAME}\")\"\n  exit 0\nfi\n\necho \"[berdcore] Using pre-built static library from ThirdParty directory\"\n\n# Ensure the static library exists\nif [ ! -f \"${PROJECT_DIR}/ThirdParty/libberdcore.a\" ]; then\n  echo \"[berdcore] ERROR: libberdcore.a not found in ${PROJECT_DIR}/ThirdParty/\"\n  echo \"[berdcore] Please build berdcore manually first:\"\n  echo \"[berdcore]   cd ${BERDCORE_DIR} && mkdir build && cd build\"\n  echo \"[berdcore]   cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk -DCMAKE_OSX_ARCHITECTURES=arm64 -DBUILD_SHARED_LIBS=OFF\"\n  echo \"[berdcore]   make\"\n  echo \"[berdcore]   cp libberdcore.a ${PROJECT_DIR}/ThirdParty/\"\n  exit 1\nfi\n\necho \"[berdcore] Found libberdcore.a in ${PROJECT_DIR}/ThirdParty/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		483898F42E9252E9007A01D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -287,13 +332,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NC5PVWL8L8;
+				DEVELOPMENT_TEAM = LZ3NL5434Q;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/berdcore/include",
+					"$(PROJECT_DIR)/cactus/cactus",
+					/opt/homebrew/include,
+				);
 				INFOPLIST_FILE = berd/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -306,19 +357,22 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/berdcore/build",
+					/opt/homebrew/lib,
+					"$(PROJECT_DIR)/ThirdParty",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = company.atechnology.berd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
-				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "berd/berd-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
@@ -331,13 +385,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NC5PVWL8L8;
+				DEVELOPMENT_TEAM = LZ3NL5434Q;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/berdcore/include",
+					"$(PROJECT_DIR)/cactus/cactus",
+					/opt/homebrew/include,
+				);
 				INFOPLIST_FILE = berd/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -350,19 +410,22 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/berdcore/build",
+					/opt/homebrew/lib,
+					"$(PROJECT_DIR)/ThirdParty",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = company.atechnology.berd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
-				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "berd/berd-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";

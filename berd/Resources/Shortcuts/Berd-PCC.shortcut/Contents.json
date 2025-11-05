@@ -2,15 +2,26 @@
   "WFWorkflowClientVersion" : "3090.1",
   "WFWorkflowActions" : [
     {
-      "WFWorkflowActionIdentifier" : "is.workflow.actions.text",
+      "WFWorkflowActionIdentifier" : "is.workflow.actions.gettext",
       "WFWorkflowActionParameters" : {
         "WFTextActionText" : {
           "Value" : {
-            "string" : "",
-            "attachmentsByRange" : {}
+            "string" : "￼",
+            "attachmentsByRange" : {
+              "{0, 1}" : {
+                "Type" : "Variable",
+                "VariableName" : "Shortcut Input"
+              }
+            }
           },
           "WFSerializationType" : "WFTextTokenString"
         }
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier" : "is.workflow.actions.setvariable",
+      "WFWorkflowActionParameters" : {
+        "WFVariableName" : "UserPrompt"
       }
     },
     {
@@ -18,8 +29,13 @@
       "WFWorkflowActionParameters" : {
         "Prompt" : {
           "Value" : {
-            "string" : "",
-            "attachmentsByRange" : {}
+            "string" : "￼",
+            "attachmentsByRange" : {
+              "{0, 1}" : {
+                "Type" : "Variable",
+                "VariableName" : "UserPrompt"
+              }
+            }
           },
           "WFSerializationType" : "WFTextTokenString"
         },
@@ -35,8 +51,13 @@
       "WFWorkflowActionParameters" : {
         "WFOutput" : {
           "Value" : {
-            "string" : "",
-            "attachmentsByRange" : {}
+            "string" : "￼",
+            "attachmentsByRange" : {
+              "{0, 1}" : {
+                "Type" : "Variable",
+                "VariableName" : "GenerateResponse"
+              }
+            }
           },
           "WFSerializationType" : "WFTextTokenString"
         }
@@ -47,6 +68,11 @@
   "WFWorkflowMinimumClientVersion" : 1200,
   "WFWorkflowTypes" : [],
   "WFWorkflowInputContentItemClasses" : [
+    "WFStringContentItem"
+  ],
+  "WFWorkflowImportQuestions" : [],
+  "WFWorkflowMinimumClientVersionString" : "1200",
+  "WFWorkflowOutputContentItemClasses" : [
     "WFStringContentItem"
   ]
 }

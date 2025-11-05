@@ -183,8 +183,8 @@ public struct AIChatMessage: Identifiable, Codable, Hashable {
 public actor AIChatService {
     public static let shared = AIChatService()
     private init() {}
-
-    public func chat(
+    
+    public func chatWithModel(
         history: [AIChatMessage],
         userInput: String,
         systemPrompt: SystemPrompt,
@@ -256,7 +256,8 @@ public actor AIChatService {
         #endif
     }
 
-    static func composePrompt(history: [AIChatMessage], userInput: String, systemPrompt: SystemPrompt) -> String {
+    // MARK: - Helper Functions
+    private static func composePrompt(history: [AIChatMessage], userInput: String, systemPrompt: SystemPrompt) -> String {
         var prompt = "SYSTEM: \(systemPrompt.prompt)\n\n"
         for msg in history.suffix(10) {
             switch msg.sender {

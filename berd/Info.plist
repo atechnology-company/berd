@@ -17,5 +17,9 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Required to transcribe speech when using the dictation microphone.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Required to enable speech recognition for dictation.</string>
 </dict>
 </plist>
